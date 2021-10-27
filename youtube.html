@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+
+        
+body
+{
+  margin: 0;
+  padding: 0;
+  
+  /* make it look decent enough */
+  background: #232323;
+  color: #cdcdcd;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+}
+
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top: 50px;
+  left: 50px;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: tomato;
+}
+
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+}
+
+
+#menuToggle span
+{
+  display: block;
+  width: 25px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #cdcdcd;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+  
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/* hide the middle one.*/
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+
+        /* ------- Nav menu -----  */
+
+
+        #videos{
+            display: grid;
+            margin: auto;
+            /* margin-left: 30%; */
+            grid-template-columns: auto;
+            margin-top: 20px ;
+            gap: 10px;
+            width: 60%;
+            border: 1px ;
+            border: 1px ;
+            /* align-content: center; */
+        }
+
+        #navBar{
+
+            height: 30px;
+            width: 40%;
+            border: 1px ;
+            margin:auto;
+            display: flex;
+            gap: 50px;
+        }
+        #query{
+
+            width: 300px;
+            height: 25px;
+        }
+
+        #logo{
+            box-sizing: border-box;
+            border: 1px ;
+            width: 100px;
+        }
+
+        #searchbtn{
+            height: 30px;
+        }
+
+        #Home{
+          border: 2px;
+          width: 50%;
+          margin: auto;
+          text-align: center;
+        }
+        #appendDiv{
+          margin-top: 50px;
+          border: 1px ;
+        }
+    </style>
+</head>
+
+<body>    
+
+
+    
+<nav role="navigation">
+    <div id="menuToggle">
+      <!--
+      A fake / hidden checkbox is used as click reciever,
+      so you can use the :checked selector on it.
+      -->
+      <input type="checkbox" />
+    
+      <span></span>
+      <span></span>
+      <span></span>
+      
+      
+      <ul id="menu">
+        <a onclick="showMostPopular()"><li>Home</li></a>
+        <a href="#"><li>About</li></a>
+        <a href="#"><li>Info</li></a>
+        <a href="#"><li>Contact</li></a>
+      
+      </ul>
+    </div>
+  </nav>
+
+        <div id="navBar"> 
+
+            <div id="logo">
+
+                <img src="https://icon-library.com/images/small-youtube-icon/small-youtube-icon-25.jpg" alt="" height="100%" >
+
+            </div>
+            <div>
+
+                <input type="text" id="query" placeholder="Search for a Video" />
+    
+                <button id="searchbtn" onclick="searchVideos()">Search</button>
+
+            </div>
+          
+        </div>
+
+        <div id="appendDiv">
+
+          <div id="Home"> </div>
+      
+          <div id="videos"></div>
+         
+
+        </div>
+       
+   
+        
+
+
+    
+   
+</body>
+
+</html>
+
+<script>
+
+
+    let video = document.getElementById("videos")
+    let query = document.getElementById("query").value
+
+    async function searchVideos() {
+        let query = document.getElementById("query").value
+
+        let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${query}&type=video&key=AIzaSyB2Ij-SYpZRmmaBT4BpYs9c0jIe4JiNbA0`)
+
+        let data = await res.json()
+        console.log("data", data);
+         appendVideos(data.items)
+    }
+
+    showMostPopular()
+
+
+    function appendVideos(video_data) {
+
+        // console.log(video_data)
+        video.innerHTML = null;
+        let Home = document.getElementById("Home")
+    
+      Home.innerHTML = null
+
+
+        video_data.forEach(({ id: { videoId },snippet: {title} }) => {
+
+
+            console.log("video", videoId)
+
+            // console.log(title)
+            let div1 = document.createElement("div")    
+            let div = document.createElement("div");
+            div1.style = "margin-bottom:30px;overflow:hidden; border: 1px ;width:700px;margin:auto"
+            let p = document.createElement("div")
+
+            div.innerHTML = `<iframe width="700px" height="250px" src="https://www.youtube.com/embed/${videoId}"frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+
+            p.textContent = title
+            p.style = "width:700px;overflow:hidden;font-size: 20px;border:1px ;font-weight:bold;"
+
+
+            div1.append(div,p)
+            video.append(div1)
+
+
+        });
+
+    }
+
+
+
+
+  async function showMostPopular(){
+
+    let res = await fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&regionCode=IN&key=AIzaSyB2Ij-SYpZRmmaBT4BpYs9c0jIe4JiNbA0")
+
+    let data =await res.json();
+
+    console.log(data.items)
+
+    appendMostpopular(data.items)
+
+
+
+   }
+
+
+   function appendMostpopular(allData){ 
+
+    let Home = document.getElementById("Home")
+    Home.innerHTML = null
+    let h = document.createElement("p")
+    h.textContent = "MOST POPULAR VIDEOS"
+    Home.append(h)
+
+    video.innerHTML = null;
+
+      allData.forEach(({ id,snippet: {title} }) =>{
+
+        // console.log("id",id,"title:",title) 
+
+
+        let div1 = document.createElement("div")    
+            let div = document.createElement("div");
+            div1.style = "margin-bottom:30px;overflow:hidden; border: 1px;width:700px;margin:auto"
+            let p = document.createElement("div")
+
+            div.innerHTML = `<iframe width="700px" height="250px" src="https://www.youtube.com/embed/${id}"frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+            div.style = "margin-top : 10px"  
+            p.textContent = title
+            p.style = "width:700px;overflow:hidden;font-size: 20px;border:1px ;font-weight:bold;"
+
+
+            div1.append(div,p)
+            video.append(div1)
+
+
+ 
+
+
+      })
+
+   }
+
+
+</script>
